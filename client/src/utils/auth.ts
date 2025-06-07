@@ -2,14 +2,14 @@ import { type JwtPayload, jwtDecode } from 'jwt-decode';
 
 interface ExtendedJwt extends JwtPayload {
   data:{
-    username:string,
+    name:string,
     email:string,
     _id:string
   }
 };
 
 class AuthService {
-  getProfile() {
+  getUser() {
     return jwtDecode<ExtendedJwt>(this.getToken());
   }
 
