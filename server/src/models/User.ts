@@ -2,14 +2,23 @@ import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 
 // Define an interface for the User document
-interface IUser extends Document {
+export interface IUser extends Document {
   _id: string;
-  name: string;
+  name?: string;
   email: string;
   password:string;
   //saved steak choices
-  favorites: string[];
+  favoriteId?: string[];
   isCorrectPassword(password: string): Promise<boolean>;
+  answers: IAnswer[];
+}
+
+// Define an interface for the Answer document
+interface IAnswer {
+  priority: string;
+  doneness: string;
+  //recommended steaks based on answer
+  recommendation: string;
 }
 
 // Define the schema for the User document
@@ -18,8 +27,6 @@ const userSchema = new Schema<IUser>(
     name: {
       type: String,
       required: true,
-      unique: true,
-      trim: true,
     },
     email: {
       type: String,
@@ -32,11 +39,18 @@ const userSchema = new Schema<IUser>(
       required: true,
       minlength: 5,
     },
-    favorites: [
+    answers:[
       {
-        type: String,
-        trim: true,
+        priority: String,
+        doneness: String,
+        recommendation: String,
       },
+    ],
+    favoriteId: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Steak'
+      }
     ],
   },
   {
