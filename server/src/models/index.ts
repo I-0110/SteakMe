@@ -1,5 +1,4 @@
-import School from './School.js';
-import Class from './Class.js';
-import Professor from './Professor.js';
+import Steak from './Steak.js';
+import User from './User.js';
 
-export { School, Class, Professor };
+export { Steak, User };
