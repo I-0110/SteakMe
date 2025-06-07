@@ -8,7 +8,7 @@ export interface IUser extends Document {
   email: string;
   password:string;
   //saved steak choices
-  favoritesId?: string[];
+  favoriteId?: string[];
   isCorrectPassword(password: string): Promise<boolean>;
   answers: IAnswer[];
 }
@@ -46,7 +46,7 @@ const userSchema = new Schema<IUser>(
         recommendation: String,
       },
     ],
-    favoritesId: [
+    favoriteId: [
       {
         type: Schema.Types.ObjectId,
         ref: 'Steak'
