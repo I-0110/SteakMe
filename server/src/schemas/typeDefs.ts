@@ -39,7 +39,7 @@ const typeDefs = `
     users: [User]!
     user(userId: ID!): User
     me: User
-    getRecommendation(priority: Sting!, doneness: String!): Steak  
+    getRecommendation(priority: String!, doneness: String!): Steak  
   }
 
   type Mutation {
