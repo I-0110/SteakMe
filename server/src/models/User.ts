@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 // Define an interface for the User document
 export interface IUser extends Document {
   _id: string;
-  name?: string;
+  name: string;
   email: string;
   password:string;
   //saved steak choices

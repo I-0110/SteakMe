@@ -1,35 +1,49 @@
 import db from '../config/connection.js';
-import { Schema } from 'mongoose';
-import { School, Class, Professor } from '../models/index.js';
+
+import { Steak, User } from '../models/index.js';
 import cleanDb from './cleanDb.js';
 
-import schoolData from './schoolData.json' with { type: 'json' };
-import classData from './classData.json' with { type: 'json' };
-import professorData from './professorData.json' with { type: 'json' };
+import steakData from './steakData.json' with { type: 'json' };
+import userData from './userData.json' with { type: 'json' };
 
+const seed = async () => {
 try {
-  await db();
-  await cleanDb();
+  await db(); // Connect to db
+  await cleanDb(); //Clear existing data
+
+  interface IUserSeed {
+    name: string;
+    email: string;
+    password: string;
+    answers: {
+      priority: string;
+      doneness: string;
+      recommendation: string;
+    }[];
+    favoriteId?: string[];
+  }
 
   // bulk create each model
-  const schools = await School.insertMany(schoolData);
-  const classes = await Class.insertMany(classData);
-  const professors = await Professor.insertMany(professorData);
+  const users: IUserSeed[] = userData;
+  const steaks = await Steak.insertMany(steakData);
 
-  for (const newClass of classes) {
-    // randomly add each class to a school
-    const tempSchool = schools[Math.floor(Math.random() * schools.length)];
-    tempSchool.classes.push(newClass._id as Schema.Types.ObjectId);
-    await tempSchool.save();
+  for (const user of users) {
+    // Create users with linked favorite steak ID.
+    const { answers } = user;
 
-    // randomly add a professor to each class
-    const tempProfessor = professors[Math.floor(Math.random() * professors.length)];
-    newClass.professor = tempProfessor._id as Schema.Types.ObjectId;
-    await newClass.save();
+    if (answers?.length) {
+      // Find the recommended steak from answers
+      const recommendationName = answers[0].recommendation;
+      const matchingSteak = steaks.find(steak => steak.name === recommendationName);
 
-    // reference class on professor model, too
-    tempProfessor.classes.push(newClass._id as Schema.Types.ObjectId);
-    await tempProfessor.save();
+      if (matchingSteak) {
+        user.favoriteId = [matchingSteak._id.toString()];
+      }
+    }
+
+    // Save user
+    const newUser = new User(user);
+    await newUser.save();
   }
 
   console.log('Seeding completed successfully!');
@@ -37,4 +51,6 @@ try {
 } catch (error) {
   console.error('Error seeding database:', error);
   process.exit(1);
-}
+}};
+
+seed();

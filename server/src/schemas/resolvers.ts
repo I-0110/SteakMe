@@ -78,19 +78,19 @@ const resolvers = {
 
   Mutation: {
     addUser: async (_parent: any, { input }: AddUserArgs): Promise<{ token: string; user: IUser }> => {
-      const user = await User.create({ ...input });
-      const token = signToken(user.name, user.email, user._id);
-      return { token, user };
+      const userDoc = await User.create({ ...input });
+      const token = signToken(userDoc.name, userDoc.email, userDoc._id);
+      return { token, user: userDoc.toObject() as IUser };
     },
     login: async (_parent: any, { email, password }: { email: string; password: string }): Promise<{ token: string; user: IUser }> => {
-      const user = await User.findOne({ email });
-      if (!user) throw AuthenticationError;
+      const userDoc = await User.findOne({ email });
+      if (!userDoc) throw AuthenticationError;
       
-      const correctPw = await user.isCorrectPassword(password);
+      const correctPw = await userDoc.isCorrectPassword(password);
       if (!correctPw) throw AuthenticationError;
     
-      const token = signToken(user.name, user.email, user._id);
-      return { token, user };
+      const token = signToken(userDoc.name, userDoc.email, userDoc._id);
+      return { token, user: userDoc.toObject() as IUser };
     },
     addFavorite: async (_parent: any, { userId, favorite }: AddFavoriteArgs, context: Context): Promise<IUser | null> => {
       if (!context.user) throw AuthenticationError;
