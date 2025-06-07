@@ -1,0 +1,67 @@
+[
+  {
+    "name": "Alice Flavorlover",
+    "email": "alice@example.com",
+    "password": "flavor123",
+    "answers": [
+      {
+        "priority": "flavor",
+        "doneness": "medium-rare",
+        "recommendation": "Ribeye"
+      }
+    ],
+    "favoriteId": []
+  },
+  {
+    "name": "Bob Texturefan",
+    "email": "bob@example.com",
+    "password": "texture123",
+    "answers": [
+      {
+        "priority": "texture",
+        "doneness": "rare",
+        "recommendation": "Tenderloin"
+      }
+    ],
+    "favoriteId": []
+  },
+  {
+    "name": "Carla Budgetwise",
+    "email": "carla@example.com",
+    "password": "budget123",
+    "answers": [
+      {
+        "priority": "cost",
+        "doneness": "medium",
+        "recommendation": "Sirloin"
+      }
+    ],
+    "favoriteId": []
+  },
+  {
+    "name": "Derek Balanced",
+    "email": "derek@example.com",
+    "password": "balanced123",
+    "answers": [
+      {
+        "priority": "flavor",
+        "doneness": "medium",
+        "recommendation": "Strip"
+      }
+    ],
+    "favoriteId": []
+  },
+  {
+    "name": "Eva ValueEater",
+    "email": "eva@example.com",
+    "password": "value123",
+    "answers": [
+      {
+        "priority": "cost",
+        "doneness": "medium-well",
+        "recommendation": "Flank / Flap / Skirt"
+      }
+    ],
+    "favoriteId": []
+  }
+]

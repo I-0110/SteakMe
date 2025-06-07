@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Ribeye",
+    "imageUrl": "https://images.pexels.com/photos/32399755/pexels-photo-32399755/free-photo-of-elegant-french-cuisine-in-vonnas-restaurant.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+    "priorities": ["flavor"],
+    "doneness": ["medium-rare", "medium", "medium-well", "well-done"],
+    "description": "A juicy, well-marbled cut full of beefy flavor."
+  },
+  {
+    "name": "Tenderloin",
+    "imageUrl": "https://example.com/images/filet.jpg",
+    "priorities": ["texture"],
+    "doneness": ["rare", "medium-rare"],
+    "description": "Exceptionally tender with a subtle flavor."
+  },
+  {
+    "name": "Sirloin",
+    "imageUrl": "https://example.com/images/sirloin.jpg",
+    "priorities": ["cost", "flavor"],
+    "doneness": ["rare", "medium-rare", "medium"],
+    "description": "Affordable and flavorful, a versatile choice."
+  },
+  {
+    "name": "Strip",
+    "imageUrl": "https://example.com/images/strip.jpg",
+    "priorities": ["flavor", "texture"],
+    "doneness": ["rare", "medium-rare", "medium", "medium-well", "well-done"],
+    "description": "A balance of tenderness and flavor with a bit of chew."
+  },
+  {
+    "name": "Flank / Flap / Skirt",
+    "imageUrl": "https://example.com/images/flank.jpg",
+    "priorities": ["flavor", "cost"],
+    "doneness": ["rare", "medium-rare", "medium", "medium-well", "well-done"],
+    "description": "Lean and fibrous, great when sliced against the grain. Good value steak!"
+  }
+]
