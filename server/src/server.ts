@@ -34,7 +34,7 @@ const startApolloServer = async () => {
   app.use('/graphql', expressMiddleware(server));
 
   // Serve React (Vite) frontend in production
-  const clientPath = path.join(__dirname, '../client/dist');
+  const clientPath = path.join(__dirname, '../../client/dist');
   app.use(express.static(clientPath));
 
   // All other routes => React app
