@@ -8,17 +8,23 @@ const typeDefs = `
     answers: [String]
   }
 
-  type Answer {
-    priority: String
-    doneness: String
-    recommendation: String
+  type Priority {
+    cost: Int!
+    texture: Int!
+    flavor: Int!
+  }
+
+  input PriorityInput {
+    cost: Int!
+    texture: Int!
+    flavor: Int!
   }
 
   type Steak {
     _id: ID!
     name: String
     imageUrl: String
-    priorities: [String]
+    priorities: Priority
     doneness: [String]
     description: String
   }
@@ -39,7 +45,7 @@ const typeDefs = `
     users: [User]!
     user(userId: ID!): User
     me: User
-    getRecommendation(priority: String!, doneness: String!): Steak  
+    getRecommendation(priority: Priorityinput!, doneness: String!): [Steak]!  
   }
 
   type Mutation {

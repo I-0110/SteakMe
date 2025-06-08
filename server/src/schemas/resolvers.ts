@@ -18,9 +18,19 @@ interface ISteak {
   _id: string;
   name: string;
   imageUrl: string;
-  priorities: string[];
+  priorities: {
+    cost: number;
+    texture: number;
+    flavor: number;
+  };
   doneness: string[];
   description: string;
+}
+
+interface PriorityInput {
+  cost: number;
+  texture: number;
+  flavor: number;
 }
 
 interface UserArgs {
@@ -65,16 +75,27 @@ const resolvers = {
       }
       throw AuthenticationError;
     },
-    getRecommendation: async (_parent: any, { priority, doneness}: { priority: string; doneness: string }): Promise<ISteak | null> => {
-      const results = await Steak.find({
-        priorities: priority,
-        doneness: doneness,
+    getRecommendation: async (_parent: any, 
+      { priority, doneness}: {
+        priority: PriorityInput;
+        doneness: string
+      }): Promise<ISteak[]> => {
+      const allSteaks = await Steak.find({ doneness: doneness });
+
+      // Basic weight scoring based on rankings
+      const getWeight = (rank: number) => 4 - rank;
+      
+      const scored = allSteaks.map(steak => {
+        const score =
+          steak.priorities.cost * getWeight(priority.cost) +
+          steak.priorities.texture * getWeight(priority.texture) +
+          steak.priorities.flavor * getWeight(priority.flavor);
+        return { ...steak.toObject(), score };
       });
 
-      if (!results.length) return null;
-      return results[Math.floor(Math.random() * results.length)];
+      return scored.sort((a, b) => b.score - a.score).slice(0, 2);
     },
-  },  
+  },
 
   Mutation: {
     addUser: async (_parent: any, { input }: AddUserArgs): Promise<{ token: string; user: IUser }> => {

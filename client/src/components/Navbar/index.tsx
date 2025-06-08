@@ -67,7 +67,7 @@ const Nav = () => {
                 <Link className="px-3 py-1.5 text-sm rounded font-bold text-white border-2 border-[#1C284Fff] bg-transparent transition-all ease-in-out duration-300 hover:bg-[#1C284Fff] hover:text-[#1C284Fff]" to="/login">
                   Login
                 </Link>
-                <Link className="px-4 py-2.5 text-sm rounded font-bold text-white border-2 border-[#F54C3Fff] bg-[#F54C3Fff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#F87A6Dff]" to="/signup">
+                <Link className="px-3 py-1.5 text-sm rounded font-bold text-white border-2 border-[#F54C3Fff] bg-[#F54C3Fff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#F87A6Dff]" to="/signup">
                   Signup
                 </Link>
               </>

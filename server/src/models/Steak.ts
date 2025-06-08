@@ -4,7 +4,11 @@ interface ISteak extends Document {
   _id: string;
   name: string;
   imageUrl: string;
-  priorities: string[];
+  priorities: {
+    cost: number;
+    texture: number;
+    flavor: number;
+  };
   doneness: string[];
   description: string;
 }
@@ -20,11 +24,6 @@ const steakSchema = new Schema<ISteak>(
     imageUrl: {
       type: String,
     },
-    priorities: [
-      {
-      type: String,
-      }
-    ],
     doneness: [
       {
       type: String,
@@ -33,6 +32,11 @@ const steakSchema = new Schema<ISteak>(
     ],
     description: {
       type: String,
+    },
+    priorities: {
+      cost: { type: Number, required: true },
+      texture: { type: Number, required: true },
+      flavor: { type: Number, required: true },
     },
   },
   {
