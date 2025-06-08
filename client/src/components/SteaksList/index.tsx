@@ -1,49 +1,49 @@
 import React from 'react';
 import { useMutation } from '@apollo/client';
 
-import { REMOVE_SKILL } from '../../utils/mutations';
+import { REMOVE_STEAK } from '../../utils/mutations';
 import { QUERY_ME } from '../../utils/queries';
 
-interface SkillsListProps {
-  skills?: string[];
+interface SteaksListProps {
+  steaks?: string[];
   isLoggedInUser: boolean;
 }
 
-const SkillsList: React.FC<SkillsListProps> = ({ skills = [], isLoggedInUser }) => {
-  const [removeSkill, { error }] = useMutation
-  (REMOVE_SKILL, {
+const SteaksList: React.FC<SteaksListProps> = ({ steaks = [], isLoggedInUser }) => {
+  const [removeSteak, { error }] = useMutation
+  (REMOVE_STEAK, {
     refetchQueries: [
       QUERY_ME,
       'me'
     ]
   });
 
-  const handleRemoveSkill = async (skill: any) => {
+  const handleRemoveSteak = async (steak: any) => {
     try {
-      await removeSkill({
-        variables: { skill },
+      await removeSteak({
+        variables: { steak },
       });
     } catch (err) {
       console.error(err);
     }
   };
-  if (!skills.length) {
-    return <h3>No Skills Yet</h3>;
+  if (!steaks.length) {
+    return <h3>No Steaks Yet</h3>;
   }
 
   return (
     <div>
       <div className="flex-row justify-space-between my-4">
-        {skills &&
-          skills.map((skill) => (
-            <div key={skill} className="col-12 col-xl-6">
+        {steaks &&
+          steaks.map((steak) => (
+            <div key={steak} className="col-12 col-xl-6">
               <div className="card mb-3">
                 <h4 className="card-header bg-dark text-light p-2 m-0 display-flex align-center">
-                  <span>{skill}</span>
+                  <span>{steak}</span>
                   {isLoggedInUser && (
                     <button
                       className="btn btn-sm btn-danger ml-auto"
-                      onClick={() => handleRemoveSkill(skill)}
+                      onClick={() => handleRemoveSteak(steak)}
                     >
                       X
                     </button>
@@ -60,4 +60,4 @@ const SkillsList: React.FC<SkillsListProps> = ({ skills = [], isLoggedInUser }) 
   );
 };
 
-export default SkillsList;
+export default SteaksList;

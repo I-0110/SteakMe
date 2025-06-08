@@ -2,7 +2,7 @@ import { useState, type FormEvent, type ChangeEvent } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useMutation } from '@apollo/client';
-import { ADD_PROFILE } from '../utils/mutations';
+import { ADD_USER } from '../utils/mutations';
 
 import Auth from '../utils/auth';
 
@@ -12,11 +12,11 @@ const Signup = () => {
     email: '',
     password: '',
   });
-  const [addProfile, { error, data }] = useMutation(ADD_PROFILE);
+  const [addUser, { error, data }] = useMutation(ADD_USER);
 
   // update state based on form input changes
-  const handleChange = (event: ChangeEvent) => {
-    const { name, value } = event.target as HTMLInputElement;
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
 
     setFormState({
       ...formState,
@@ -30,11 +30,12 @@ const Signup = () => {
     console.log(formState);
 
     try {
-      const { data } = await addProfile({
+      const { data } = await addUser({
         variables: { input: { ...formState } },
       });
-
-      Auth.login(data.addProfile.token);
+      if (data?.addUser?.token) {
+        Auth.login(data.addUser.token);
+      }
     } catch (e) {
       console.error(e);
     }
@@ -53,15 +54,15 @@ const Signup = () => {
               </p>
             ) : (
               <form onSubmit={handleFormSubmit}>
-                <input
+                <input required
                   className="form-input"
-                  placeholder="Your username"
+                  placeholder="Your name"
                   name="name"
                   type="text"
                   value={formState.name}
                   onChange={handleChange}
                 />
-                <input
+                <input required
                   className="form-input"
                   placeholder="Your email"
                   name="email"
@@ -69,7 +70,7 @@ const Signup = () => {
                   value={formState.email}
                   onChange={handleChange}
                 />
-                <input
+                <input required
                   className="form-input"
                   placeholder="******"
                   name="password"

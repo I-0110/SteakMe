@@ -23,7 +23,17 @@ const Footer: React.FC = () => {
             &larr; Go Back
           </button>
         )}
-        <h4>&copy; {new Date().getFullYear()} - Tech Friends</h4>
+        <h4>
+          &copy; {new Date().getFullYear()} -{' '}
+          <a
+            href="https://github.com/I-0110"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-blue-400 hover:underline"
+          >
+            I-0110
+          </a>
+        </h4>
       </div>
     </footer>
   );
