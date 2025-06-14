@@ -14,10 +14,16 @@ const typeDefs = `
     flavor: Int!
   }
 
+  enum PriorityLevel {
+    HIGH
+    MEDIUM
+    LOW
+  }
+
   input PriorityInput {
-    cost: Int!
-    texture: Int!
-    flavor: Int!
+    cost: PriorityLevel!
+    texture: PriorityLevel!
+    flavor: PriorityLevel!
   }
 
   type Steak {
